@@ -1,0 +1,15 @@
+<?php include( 'templates/parts/header.phtml' ); ?>
+
+<!-- Сообщение об успешной регистрации -->
+<div id="main">
+	<div class="container">
+		<h1><?php echo $title; ?></h1>
+		<div class="message message-success">
+			<?php Misc::_( 'Вы успешно зарегистрировались на сайте!' ); ?>
+		</div>
+		<br>
+		<a href="/" class="button"><i class="fa fa-user"></i><?php Misc::_( 'Перейти на страницу профиля' ); ?></a>
+	</div>
+</div>
+
+<?php include( 'templates/parts/footer.phtml' ); ?>

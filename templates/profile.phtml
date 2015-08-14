@@ -1,0 +1,52 @@
+<?php include( 'templates/parts/header.phtml' ); ?>
+
+<!-- Страница профиля, которую видят только вошедшие на сайт пользователи -->
+<div id="main">
+	<div class="container">
+		<h1><?php echo $title; ?></h1>
+		<div class="row">
+			<div class="col col-2">
+				<div class="block">
+					<img src="<?php echo is_file( 'media/images/' . Account::getCurrent()->getData( 'login' ) . '.jpg' ) 
+						? 'media/images/' . Account::getCurrent()->getData( 'login' ) . '.jpg'
+						: 'media/images/no-image.jpg'; ?>" class="profile-image">
+				</div>
+			</div>
+			<div class="col col-4">
+				<div class="block">
+					<div class="profile-information">
+						<h3><?php Misc::_( 'Персональные данные' ); ?></h3>
+						<table class="profile-information-table" cellpadding="0" cellspacing="0">
+							<tr>
+								<td><?php Misc::_( 'Имя' ); ?></td>
+								<td><?php echo Account::getCurrent()->getData( 'name' ); ?></td>
+							</tr>
+							<tr>
+								<td><?php Misc::_( 'Фамилия' ); ?></td>
+								<td><?php echo Account::getCurrent()->getData( 'surname' ); ?></td>
+							</tr>
+							<tr>
+								<td><?php Misc::_( 'Логин' ); ?></td>
+								<td><?php echo Account::getCurrent()->getData( 'login' ); ?></td>
+							</tr>
+							<tr>
+								<td><?php Misc::_( 'Почта' ); ?></td>
+								<td><?php echo Account::getCurrent()->getData( 'email' ); ?></td>
+							</tr>
+							<tr>
+								<td><?php Misc::_( 'Пол' ); ?></td>
+								<td><?php Account::getCurrent()->getData( 'gender' ) == 'male' ? Misc::_( 'Мужской' ) : Misc::_( 'Женский' ); ?></td>
+							</tr>
+							<tr>
+								<td><?php Misc::_( 'Дата регистрации' ); ?></td>
+								<td><?php echo date ( 'd.m.Y H:i', Account::getCurrent()->getData( 'registration_date' ) ); ?></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php include( 'templates/parts/footer.phtml' ); ?>

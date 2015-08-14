@@ -1,0 +1,5 @@
+<select class="language-selector" onChange="Main.changeLanguage( this.value )">
+	<?php foreach ( Translate::getAvailableLocales() as $alias => $name ) { ?>
+		<option value="<?php echo $alias; ?>" <?php if ( Translate::getLocale() == $alias ) { echo 'selected'; } ?>><?php Misc::_( $name ); ?></option>
+	<?php } ?>
+</select>

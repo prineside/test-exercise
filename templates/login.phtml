@@ -1,0 +1,70 @@
+<?php include( 'templates/parts/header.phtml' ); ?>
+
+<!-- Форма входа, которую видят только гости -->
+<div id="main">
+	<div class="container">
+		<h1><?php echo $title; ?></h1>
+		
+		<?php if ( isset( $message ) ) { ?>
+		<div class="message <?php echo isset( $messageType ) ? 'message-' . $messageType : ''; ?>">
+			<?php echo $message; ?>
+		</div>
+		<?php } ?>
+		
+		<div class="paragraph">
+			<form method="POST">
+				<input type="hidden" name="do" value="login">
+				
+				<!-- Логин / адрес электронной почты -->
+				<label class="label-input-block">																		<!-- Контейнер для поля, его заголовка и доп. элементов. При клике на него поле будет сфокусировано -->
+					<span class="label-title"><?php Misc::_( 'Логин или адрес электронной почты' ); ?></span>			<!-- Название поля, которое всегда видно -->
+					<span class="label-input">																			<!-- Контейнер для поля, который используется для абсолютного позиционирования подсказок и позволяет сделать поле со значком -->
+						<i class="fa fa-user"></i><!-- 																		 Значок поля. Комментарий использован в практических целях (убрать пробел между inline-block элементами для точности)
+					 --><input type="text" required 
+							name="login"
+							data-validation="account-exists"
+							autofocus="autofocus"
+							onBlur="Main.validateFormField( this )">													<!-- Само поле. Атрибут data-validation устанавливает условие валидации поля -->
+						
+						<span class="input-description">																<!-- Подсказка, которая появляется при фокусе на поле -->
+							<?php Misc::_( 'Логин или адрес почтового ящика, на который зарегистрирован Ваш профиль' ); ?>
+						</span>
+						
+						<!-- <span class="form-validation-popup valid">Адрес почты указан верно</span> 					<!-- Подсказка, которую добавляет JS во время валидации поля -->
+					</span>
+				</label>
+				
+				<!-- Пароль -->
+				<label class="label-input-block">
+					<span class="label-title"><?php Misc::_( 'Пароль' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-unlock-alt"></i><!--
+					 --><input type="password" required
+							name="password"
+							data-validation="password" 
+							onBlur="Main.validateFormField( this )">
+						
+						<span class="input-description">
+							<?php Misc::_( 'Пароль, который Вы указали при регистрации' ); ?>
+						</span>
+					</span>
+				</label>
+				
+				<!-- Кнопка отправки формы -->
+				<button type="submit" onClick="return Main.validateAndSubmitForm( this.form )"><i class="fa fa-sign-in"></i><?php Misc::_( 'Вход' ); ?></button>
+				
+				<!-- Значок отправки формы, который добавляет JS во время валидации формы перед отправкой
+				<span class="form-submiting">
+					<i class="fa fa-spinner fa-pulse"></i>
+				</span>
+				-->
+			</form>
+		</div>
+		<div class="paragraph">
+			<?php Misc::_( 'Еще не зарегистрированы?' ); ?><br>
+			<a href="<?php echo Misc::url( 'registration' ); ?>"><i class="fa fa-user-plus"></i> <?php Misc::_( 'Зарегистрироваться' ); ?></a>
+		</div>
+	</div>
+</div>
+
+<?php include( 'templates/parts/footer.phtml' ); ?>

@@ -1,0 +1,60 @@
+<?php
+	// Массив для более удобного редактирования ссылок (можно вынести в отдельный файл конфигурации или в базу)
+	$mainMenuItems = array(
+		'left' => array(
+			array(
+				'visible' => Account::getCurrent()->isGuest(),		// bool - отображать ссылку или нет
+				'title' => Translate::toCurrent( 'Главная страница' ),			// string - текст ссылки
+				'href' => Misc::url( 'index' ),						// string - значение a href (uri целевой страницы)
+				'active' => $requestedAction == 'index',			// bool - отображать ссылку как активную (подсвечивать) или нет
+				'icon' => 'home'									// string - значок в ссылке (fontawesome)
+			),
+			array(
+				'visible' => !Account::getCurrent()->isGuest(),
+				'title' => Translate::toCurrent( 'Мой профиль' ),
+				'href' => Misc::url( 'index' ),
+				'active' => $requestedAction == 'index',
+				'icon' => 'user'
+			),
+		),
+		'right' => array(
+			array(
+				'visible' => Account::getCurrent()->isGuest(),
+				'title' => Translate::toCurrent( 'Вход' ),
+				'href' => Misc::url( 'login' ),
+				'active' => $requestedAction == 'login',
+				'icon' => 'sign-in'
+			),
+			array(
+				'visible' => Account::getCurrent()->isGuest(),
+				'title' => Translate::toCurrent( 'Регистрация' ),
+				'href' => Misc::url( 'registration' ),
+				'active' => $requestedAction == 'registration',
+				'icon' => 'user-plus'
+			),
+			array(
+				'visible' => !Account::getCurrent()->isGuest(),
+				'title' => Translate::toCurrent( 'Выход' ),
+				'href' => Misc::url( 'logout' ),
+				'active' => $requestedAction == 'logout',
+				'icon' => 'sign-out'
+			),
+		)
+	);
+?>
+
+<div id="menu">
+	<div class="container">
+		<?php foreach ( $mainMenuItems as $menuSide => $links ) { ?>
+			<div id="menu-float-<?php echo $menuSide; ?>">
+				<?php foreach ( $links as $link ) { ?>
+					<?php if ( $link[ 'visible' ] ) { ?>
+						<a href="<?php echo $link[ 'href' ]; ?>" <?php if ( $link[ 'active' ] ) { echo 'class="active"'; } ?>>
+							<i class="fa fa-<?php echo $link[ 'icon' ]; ?>"></i><?php echo $link[ 'title' ]; ?>
+						</a>
+					<?php } ?>
+				<?php } ?>
+			</div>
+		<?php } ?>
+	</div>
+</div>

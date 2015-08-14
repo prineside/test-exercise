@@ -1,0 +1,176 @@
+<?php include( 'templates/parts/header.phtml' ); ?>
+
+<!-- Форма регистрации, которую видят только гости -->
+<div id="main">
+	<div class="container">
+		<h1><?php echo $title; ?></h1>
+		
+		<?php if ( isset( $message ) ) { ?>
+		<div class="message <?php echo isset( $messageType ) ? 'message-' . $messageType : ''; ?>">
+			<?php echo $message; ?>
+		</div>
+		<?php } ?>
+		
+		<div class="paragraph">
+			<form method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="do" value="registration">
+				
+				<!-- Адрес электронной почты -->
+				<label class="label-input-block">
+					<span class="label-title mandatory"><?php Misc::_( 'Адрес электронной почты' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-envelope"></i><!--
+					 --><input type="email" required
+							name="email"
+							data-validation="email-not-exists" 
+							autofocus="autofocus"
+							placeholder="someone@somewhere.com"
+							onBlur="Main.validateFormField( this )">
+						
+						<span class="input-description">
+							<?php Misc::_( 'Обязательное поле' ); ?><br>
+							<br>
+							<?php Misc::_( 'Существующий адрес Вашей электронной почты' ); ?><br>
+							<?php Misc::_( 'Пример: someone@somewhere.com' ); ?><br>
+							<br>
+							<?php Misc::_( 'Вы сможете входить на сайт, используя этот адрес' ); ?>
+						</span>
+					</span>
+				</label>
+				
+				<!-- Логин -->
+				<label class="label-input-block">
+					<span class="label-title mandatory"><?php Misc::_( 'Логин' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-quote-right"></i><!--
+					 --><input type="text" required
+							name="login"
+							data-validation="login-not-exists" 
+							placeholder="someone"
+							onBlur="Main.validateFormField( this )">
+							
+						<span class="input-description">
+							<?php Misc::_( 'Обязательное поле' ); ?><br>
+							<br>
+							<?php Misc::_( 'Уникальный псевдоним, который можно использовать вместо адреса электронной почты для входа на сайт' ); ?><br>
+							<br>
+							<?php Misc::_( 'От 3 до 32 символов' ); ?><br>
+							<?php Misc::_( 'Можно использовать латинские символы в любом регистре, цифры и нижнее подчеркивание (_)' ); ?>
+						</span>
+				</label>
+				
+				<!-- Имя -->
+				<label class="label-input-block">
+					<span class="label-title"><?php Misc::_( 'Имя' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-user"></i><!--
+					 --><input type="text"
+							name="name"
+							data-validation="name" 
+							placeholder="<?php Misc::_( 'Иван' ); ?>"
+							onBlur="Main.validateFormField( this )">
+							
+						<span class="input-description">
+							<?php Misc::_( 'Ваше настоящее имя, которое будет отображено в Вашем профиле' ); ?><br>
+							<br>
+							<?php Misc::_( 'От 1 до 32 символов' ); ?><br>
+							<?php Misc::_( 'Можно использовать латиницу, кириллицу, пробел и дефис' ); ?>
+						</span>
+				</label>
+				
+				<!-- Фамилия -->
+				<label class="label-input-block">
+					<span class="label-title"><?php Misc::_( 'Фамилия' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-user"></i><!--
+					 --><input type="text"
+							name="surname"
+							data-validation="surname" 
+							placeholder="<?php Misc::_( 'Иванов' ); ?>"
+							onBlur="Main.validateFormField( this )">
+							
+						<span class="input-description">
+							<?php Misc::_( 'Ваша фамилия, которая будет отображена в Вашем профиле' ); ?><br>
+							<br>
+							<?php Misc::_( 'От 1 до 32 символов' ); ?><br>
+							<?php Misc::_( 'Можно использовать латиницу, кириллицу, пробел и дефис' ); ?>
+						</span>
+				</label>
+				
+				<!-- Пол -->
+				<div class="label-radio-block">
+					<span class="label-title"><?php Misc::_( 'Пол' ); ?></span>
+					<label class="input-radio-title">
+						<input type="radio" name="gender" value="male" checked><?php Misc::_( 'Мужской' ); ?>
+					</label>
+					<label class="input-radio-title">
+						<input type="radio" name="gender" value="female"><?php Misc::_( 'Женский' ); ?>
+					</label>
+				</div>
+				
+				<!-- Пароль -->
+				<label class="label-input-block">
+					<span class="label-title mandatory"><?php Misc::_( 'Пароль' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-unlock-alt"></i><!--
+					 --><input type="password"
+							name="password"
+							id="input-password"
+							data-validation="password" 
+							onBlur="Main.validateFormField( this )">
+							
+						<span class="input-description">
+							<?php Misc::_( 'Придумайте пароль для входа на сайт' ); ?><br>
+							<br>
+							<?php Misc::_( 'Минимум 6 символов' ); ?><br>
+							<?php Misc::_( 'Пароль должен содержать минимум одну букву и одну цифру' ); ?>
+						</span>
+				</label>
+				
+				<!-- Подтверждение пароля -->
+				<label class="label-input-block">
+					<span class="label-title mandatory"><?php Misc::_( 'Подтверждение пароля' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-unlock-alt"></i><!--
+					 --><input type="password"
+							name="password-confirm"
+							data-validation="password-confirm"
+							data-password-field="input-password"
+							onBlur="Main.validateFormField( this )">
+							
+						<span class="input-description">
+							<?php Misc::_( 'Введите пароль еще раз' ); ?>
+						</span>
+				</label>
+				
+				<!-- Изображение профиля -->
+				<label class="label-input-block">
+					<span class="label-title"><?php Misc::_( 'Изображение профиля' ); ?></span>
+					<span class="label-input">
+						<i class="fa fa-picture-o"></i><!--
+					 --><input type="file" 
+							accept="image/jpeg,image/png,image/gif"
+							name="image"
+							data-validation="image"
+							data-image-max-size="<?php echo Misc::getMaxUploadSizeBytes(); ?>"
+							onChange="Main.validateFormField( this )">
+							
+						<span class="input-description">
+							<?php Misc::_( 'Вы можете загрузить изображение для своего профиля' ); ?><br>
+							<?php Misc::_( 'Доступные форматы изображений: jpg, gif, png' ); ?><br>
+							<?php Misc::_( 'Размер изображения не должен превышать' ); echo ' ' . ini_get( 'upload_max_filesize' ); ?>
+						</span>
+				</label>
+				
+				<!-- Кнопка отправки формы -->
+				<button type="submit" onClick="return Main.validateAndSubmitForm( this.form )"><i class="fa fa-user-plus"></i><?php Misc::_( 'Регистрация' ); ?></button>
+			</form>
+		</div>
+		<div class="paragraph">
+			<?php Misc::_( 'Уже зарегистрированы?' ); ?><br>
+			<a href="<?php echo Misc::url( 'login' ); ?>"><i class="fa fa-sign-in"></i> <?php Misc::_( 'Вход' ); ?></a>
+		</div>
+	</div>
+</div>
+
+<?php include( 'templates/parts/footer.phtml' ); ?>

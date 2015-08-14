@@ -1,0 +1,17 @@
+<?php include( 'templates/parts/header.phtml' ); ?>
+
+<!-- Главная страница, которую видят пользователи, что не прошли аутентификацию -->
+<div id="main">
+	<div class="container">
+		<h1><?php echo $title; ?></h1>
+		<div class="paragraph">
+			<?php Misc::_( 'Для просмотра Вашего профиля необходимо войти на сайт' ); ?>
+		</div>
+		<div id="index-auth-buttons-wrap">
+			<a class="button" href="<?php echo Misc::url( 'login' ); ?>"><i class="fa fa-sign-in"></i><?php Misc::_( 'Вход' ); ?></a>
+			<a class="button" href="<?php echo Misc::url( 'registration' ); ?>"><i class="fa fa-user-plus"></i><?php Misc::_( 'Регистрация' ); ?></a>
+		</div>
+	</div>
+</div>
+
+<?php include( 'templates/parts/footer.phtml' ); ?>

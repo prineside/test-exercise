@@ -1,0 +1,41 @@
+		
+		<div class="container">
+			<div id="footer">
+				<div class="row">
+					<div class="col col-4">
+						<div class="block">
+							Вход, регистрация и просмотр профиля
+						</div>
+					</div>
+					<div class="col col-2">
+						<div class="block">
+							<div id="footer-language-selector-wrap">
+								<?php include( 'templates/parts/language-selector.phtml' ); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			// Инициализация основного скрипта и передача в него текущего обработчика с языком
+			// Так как скрипт загружается асинхронно (defer), а инициализировать его нужно с переменными PHP,
+			// загрузка произойдет по событию document.mainScriptLoad, которое вызывается в скрипте
+			function InitMain() {
+				Main.init( <?php echo Misc::toJavaScriptString( $requestedAction ); ?>, <?php echo Misc::toJavaScriptString( Translate::getLocale() ); ?> );
+			}
+			
+			if ( typeof( Main ) != 'undefined' ) {
+				// Главный скрипт уже загружен
+				InitMain();
+			} else {
+				// Главный скрипт еще не загружен, выполняем по событию
+				document.addEventListener( "mainScriptLoad", function(e) {
+					InitMain();
+				}, false );
+
+			}
+		</script>
+	</body>
+</html>
